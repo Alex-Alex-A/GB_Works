@@ -146,7 +146,7 @@ int main()
         Timer timer5("for + for");
         for (int i = 0; i < str.size(); i++) {         // перебор элементов строки циклом for и for
             for (int j = 0; j < vowels.size(); j++) {
-                if (str.at(i) == vowels.at(j)) {
+                if (tolower(str.at(i)) == vowels.at(j)) {
                     ++num_vowel;
                     break;
                 }
