@@ -29,7 +29,7 @@ private:
 public:
     Matrix(size_t n) {
         m_n = n;
-        m_pointer = new T[m_n * 3];     // матрица у нас квадратная
+        m_pointer = new T[m_n * m_n];     // матрица у нас квадратная
     }
     void Set_Element(size_t x, size_t y, T el) {          // задаём значения элементов матрицы
         m_pointer[(y - 1) * m_n + (x - 1)] = el;
