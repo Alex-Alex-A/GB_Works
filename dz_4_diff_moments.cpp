@@ -52,8 +52,6 @@ double rand_double() {                    /// функция, выдающая �
 double my_add(double x, double y) { return x + y; }                // сложение
 double my_act(double x, double y) { return ((x - y)*(x - y)); }    // вычитание элементов контейнеров и возведение в квадрат 
 
-
-
 int main()
 {
                // задание 1
@@ -92,9 +90,11 @@ int main()
 
     cout << "\n\n";
 
-    for (int i = 0; i < ARR_COUNT; i++) {
-        vi[i] = static_cast<int>(vd[i]);
-    }
+    //for (int i = 0; i < ARR_COUNT; i++) {
+    //    vi[i] = static_cast<int>(vd[i]);
+    //}
+
+    transform(begin(vd), end(vd), vi, [=](int i) { return static_cast<int>(vd[i]); });  // преобразуем double в int
 
     cout << "================ vector integer =================\n";
     for (int i = 0; i < ARR_COUNT; i++) {
