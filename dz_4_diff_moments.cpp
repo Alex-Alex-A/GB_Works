@@ -90,10 +90,6 @@ int main()
 
     cout << "\n\n";
 
-    //for (int i = 0; i < ARR_COUNT; i++) {
-    //    vi[i] = static_cast<int>(vd[i]);
-    //}
-
     transform(begin(vd), end(vd), vi, [=](int i) { return static_cast<int>(vd[i]); });  // преобразуем double в int
 
     cout << "================ vector integer =================\n";
