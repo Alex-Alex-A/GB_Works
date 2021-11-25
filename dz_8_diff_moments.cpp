@@ -23,22 +23,22 @@ private:
     string m_patronymic;
 public:
     Person(string lname, string fname, string pname) : m_last_name(lname), m_first_name(fname), m_patronymic(pname) {}
-    Person(string lname, string fname) : m_first_name(lname), m_last_name(fname) { m_patronymic = ""; }                                    // перегружаем конструктор для людей без отчества
+    Person(string lname, string fname) : m_first_name(lname), m_last_name(fname) { m_patronymic = ""; }                                    // РїРµСЂРµРіСЂСѓР¶Р°РµРј РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РґР»СЏ Р»СЋРґРµР№ Р±РµР· РѕС‚С‡РµСЃС‚РІР°
 
-    friend std::ostream& operator<< (std::ostream& out, const Person& person) {                                        // перегружаем оператор вывода
+    friend std::ostream& operator<< (std::ostream& out, const Person& person) {                                        // РїРµСЂРµРіСЂСѓР¶Р°РµРј РѕРїРµСЂР°С‚РѕСЂ РІС‹РІРѕРґР°
         out << " " << person.m_last_name << "  " << person.m_first_name << "  " << person.m_patronymic << "  ";
         return out;
     }
 
-    friend bool operator< (const Person& p1, const Person& p2) {                                                  // перегружаем оператор <
-        if (p1.m_patronymic == "" || p2.m_patronymic == "")         // если нет отчества - сравниваем без него
+    friend bool operator< (const Person& p1, const Person& p2) {                                                  // РїРµСЂРµРіСЂСѓР¶Р°РµРј РѕРїРµСЂР°С‚РѕСЂ <
+        if (p1.m_patronymic == "" || p2.m_patronymic == "")         // РµСЃР»Рё РЅРµС‚ РѕС‚С‡РµСЃС‚РІР° - СЃСЂР°РІРЅРёРІР°РµРј Р±РµР· РЅРµРіРѕ
             return tie(p1.m_first_name, p1.m_last_name) < tie(p2.m_first_name, p2.m_last_name);
         else
             return tie(p1.m_first_name, p1.m_patronymic, p1.m_last_name) < tie(p2.m_first_name, p2.m_patronymic, p2.m_last_name);
     }
 
-    friend bool operator== (const Person& p1, const Person& p2) {                                                 // перегружаем оператор ==
-        if (p1.m_patronymic == "" || p2.m_patronymic == "")         // если нет отчества - сравниваем без него
+    friend bool operator== (const Person& p1, const Person& p2) {                                                 // РїРµСЂРµРіСЂСѓР¶Р°РµРј РѕРїРµСЂР°С‚РѕСЂ ==
+        if (p1.m_patronymic == "" || p2.m_patronymic == "")         // РµСЃР»Рё РЅРµС‚ РѕС‚С‡РµСЃС‚РІР° - СЃСЂР°РІРЅРёРІР°РµРј Р±РµР· РЅРµРіРѕ
             return tie(p1.m_last_name, p1.m_first_name) == tie(p2.m_last_name, p2.m_first_name);
         else
             return tie(p1.m_last_name, p1.m_first_name, p1.m_patronymic) == tie(p2.m_last_name, p2.m_first_name, p2.m_patronymic);
@@ -68,9 +68,9 @@ public:
     PhoneNumber() {}
     PhoneNumber(int country_c, int city_c, string number, int add = 0) : m_country_code(country_c), m_city_code(city_c), m_number(number), m_add(add) {}
 
-    friend std::ostream& operator<< (std::ostream& out, const PhoneNumber& pn) {                                        // перегружаем оператор вывода
+    friend std::ostream& operator<< (std::ostream& out, const PhoneNumber& pn) {                                        // РїРµСЂРµРіСЂСѓР¶Р°РµРј РѕРїРµСЂР°С‚РѕСЂ РІС‹РІРѕРґР°
         if (pn.m_add != 0)
-            out << "+" << pn.m_country_code << "(" << pn.m_city_code << ")" << pn.m_number << " " << pn.m_add << "\n";  // если есть добавочный код
+            out << "+" << pn.m_country_code << "(" << pn.m_city_code << ")" << pn.m_number << " " << pn.m_add << "\n";  // РµСЃР»Рё РµСЃС‚СЊ РґРѕР±Р°РІРѕС‡РЅС‹Р№ РєРѕРґ
         else
             out << "+" << pn.m_country_code << "(" << pn.m_city_code << ")" << pn.m_number << "\n";
         return out;
@@ -96,86 +96,86 @@ private:
 public:
     PhoneBook(string fname) {
         ifstream is(fname);
-        if (is.is_open()) {     // проверяем, открыт ли файл
+        if (is.is_open()) {     // РїСЂРѕРІРµСЂСЏРµРј, РѕС‚РєСЂС‹С‚ Р»Рё С„Р°Р№Р»
             char buf[256];
 
             while (!is.eof()) {
-                is.getline(buf, 256, '\n');    // в buf получаем строку из файла
+                is.getline(buf, 256, '\n');    // РІ buf РїРѕР»СѓС‡Р°РµРј СЃС‚СЂРѕРєСѓ РёР· С„Р°Р№Р»Р°
                 //cout << buf << "\n\n";
 
-                string s(buf);  // преобразуем c-style строку в std::string
-                s = s + " ";    // добавляем в конец строки пробел для работы функции поиска
+                string s(buf);  // РїСЂРµРѕР±СЂР°Р·СѓРµРј c-style СЃС‚СЂРѕРєСѓ РІ std::string
+                s = s + " ";    // РґРѕР±Р°РІР»СЏРµРј РІ РєРѕРЅРµС† СЃС‚СЂРѕРєРё РїСЂРѕР±РµР» РґР»СЏ СЂР°Р±РѕС‚С‹ С„СѓРЅРєС†РёРё РїРѕРёСЃРєР°
                 size_t found;
                 size_t start = 0;
                 string lname, fname, pname, country_code, city_code, number, add;
 
                 found = s.find(" ", start);
                 if (found != std::string::npos) {
-                    lname = s.substr(start, found - start);      // парсим фамилию
+                    lname = s.substr(start, found - start);      // РїР°СЂСЃРёРј С„Р°РјРёР»РёСЋ
                     //cout << lname << "\n";
                     start = found + 1;
                 }
 
                 found = s.find(" ", start);
                 if (found != std::string::npos) {
-                    fname = s.substr(start, found - start);      // парсим имя
+                    fname = s.substr(start, found - start);      // РїР°СЂСЃРёРј РёРјСЏ
                     //cout << fname << "\n";
                     start = found + 1;
                 }
 
                 found = s.find(" ", start);
                 if (found != std::string::npos) {
-                    pname = s.substr(start, found - start);      // парсим отчество
+                    pname = s.substr(start, found - start);      // РїР°СЂСЃРёРј РѕС‚С‡РµСЃС‚РІРѕ
                     //cout << pname << "\n";
                     start = found + 1;
                 }
 
                 found = s.find(" ", start);
                 if (found != std::string::npos) {
-                    country_code = s.substr(start, found - start);      // парсим код страны
+                    country_code = s.substr(start, found - start);      // РїР°СЂСЃРёРј РєРѕРґ СЃС‚СЂР°РЅС‹
                     //cout << country_code << "\n";
                     start = found + 1;
                 }
 
                 found = s.find(" ", start);
                 if (found != std::string::npos) {
-                    city_code = s.substr(start, found - start);      // парсим код города
+                    city_code = s.substr(start, found - start);      // РїР°СЂСЃРёРј РєРѕРґ РіРѕСЂРѕРґР°
                     //cout << city_code << "\n";
                     start = found + 1;
                 }
 
                 found = s.find(" ", start);
                 if (found != std::string::npos) {
-                    number = s.substr(start, found - start);      // парсим номер телефона
+                    number = s.substr(start, found - start);      // РїР°СЂСЃРёРј РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°
                     //cout << number << "\n";
                     start = found + 1;
                 }
 
                 found = s.find(" ", start);
                 if (found != std::string::npos) {
-                    add = s.substr(start, found - start);      // парсим добавочный код
+                    add = s.substr(start, found - start);      // РїР°СЂСЃРёРј РґРѕР±Р°РІРѕС‡РЅС‹Р№ РєРѕРґ
                     //cout << add << "\n";
                     start = found + 1;
                 }
 
                 //cout << "\n";
 
-                if (pname == "-")      // если нет отчества
+                if (pname == "-")      // РµСЃР»Рё РЅРµС‚ РѕС‚С‡РµСЃС‚РІР°
                     pname = "";
                 Person pr(lname, fname, pname);
 
                 int icountry_c, icity_c, iadd;
-                icountry_c = stoi(country_code);  // переводим string в integer
+                icountry_c = stoi(country_code);  // РїРµСЂРµРІРѕРґРёРј string РІ integer
                 icity_c = stoi(city_code);
 
-                if (add == "-")     // если нет добавочного кода
+                if (add == "-")     // РµСЃР»Рё РЅРµС‚ РґРѕР±Р°РІРѕС‡РЅРѕРіРѕ РєРѕРґР°
                     iadd = 0;
                 else
                     iadd = stoi(add);
 
                 PhoneNumber pn(icountry_c, icity_c, number, iadd);
 
-                PP.push_back(make_pair(pr, pn));  // добавляем пару в вектор
+                PP.push_back(make_pair(pr, pn));  // РґРѕР±Р°РІР»СЏРµРј РїР°СЂСѓ РІ РІРµРєС‚РѕСЂ
             }
 
             is.close();
@@ -184,7 +184,7 @@ public:
             cout << "Can't open file:  " << fname << "\n\n";
     }
 
-    friend std::ostream& operator<< (std::ostream& out, const PhoneBook& pb) {      // перегружаем оператор вывода
+    friend std::ostream& operator<< (std::ostream& out, const PhoneBook& pb) {      // РїРµСЂРµРіСЂСѓР¶Р°РµРј РѕРїРµСЂР°С‚РѕСЂ РІС‹РІРѕРґР°
 
         for (int i = 0; i < pb.PP.size(); i++)
             out << pb.PP[i].first << pb.PP[i].second;
@@ -199,7 +199,7 @@ public:
             {
                 string sname1 = p1.first.Get_SurName();
                 string sname2 = p2.first.Get_SurName();
-                return sname1[0] < sname2[0];                // сортируем по первой букве фамилии
+                return sname1[0] < sname2[0];                // СЃРѕСЂС‚РёСЂСѓРµРј РїРѕ РїРµСЂРІРѕР№ Р±СѓРєРІРµ С„Р°РјРёР»РёРё
             }
         );
 
@@ -208,7 +208,7 @@ public:
             {
                 string sname1 = p1.first.Get_SurName();
                 string sname2 = p2.first.Get_SurName();
-                return (sname1[1] < sname2[1] && sname1[0] == sname2[0]);                // сортируем по второй букве фамилии, при условии, что предыдущие буквы равны
+                return (sname1[1] < sname2[1] && sname1[0] == sname2[0]);                // СЃРѕСЂС‚РёСЂСѓРµРј РїРѕ РІС‚РѕСЂРѕР№ Р±СѓРєРІРµ С„Р°РјРёР»РёРё, РїСЂРё СѓСЃР»РѕРІРёРё, С‡С‚Рѕ РїСЂРµРґС‹РґСѓС‰РёРµ Р±СѓРєРІС‹ СЂР°РІРЅС‹
             }
         );
 
@@ -217,7 +217,7 @@ public:
             {
                 string sname1 = p1.first.Get_SurName();
                 string sname2 = p2.first.Get_SurName();
-                return (sname1[2] < sname2[2] && sname1[1] == sname2[1]);                // сортируем по третьей букве фамилии, при условии, что предыдущие буквы равны
+                return (sname1[2] < sname2[2] && sname1[1] == sname2[1]);                // СЃРѕСЂС‚РёСЂСѓРµРј РїРѕ С‚СЂРµС‚СЊРµР№ Р±СѓРєРІРµ С„Р°РјРёР»РёРё, РїСЂРё СѓСЃР»РѕРІРёРё, С‡С‚Рѕ РїСЂРµРґС‹РґСѓС‰РёРµ Р±СѓРєРІС‹ СЂР°РІРЅС‹
             }
         );
 
@@ -228,7 +228,7 @@ public:
                 string sname2 = p2.first.Get_SurName();
                 string fname1 = p1.first.Get_FirstName();
                 string fname2 = p2.first.Get_FirstName();
-                return (fname1[0] < fname2[0] && sname1 == sname2);                // сортируем по первой букве имени, при условии, что фамилии одинаковые
+                return (fname1[0] < fname2[0] && sname1 == sname2);                // СЃРѕСЂС‚РёСЂСѓРµРј РїРѕ РїРµСЂРІРѕР№ Р±СѓРєРІРµ РёРјРµРЅРё, РїСЂРё СѓСЃР»РѕРІРёРё, С‡С‚Рѕ С„Р°РјРёР»РёРё РѕРґРёРЅР°РєРѕРІС‹Рµ
             }
         );
 
@@ -242,7 +242,7 @@ public:
             {
                 int concode1 = p1.second.Get_Country_Code();
                 int concode2 = p2.second.Get_Country_Code();
-                return concode1 < concode2;                     // сортируем по кантри коду
+                return concode1 < concode2;                     // СЃРѕСЂС‚РёСЂСѓРµРј РїРѕ РєР°РЅС‚СЂРё РєРѕРґСѓ
             }
         );
 
@@ -253,7 +253,7 @@ public:
                 int concode2 = p2.second.Get_Country_Code();
                 int citcode1 = p1.second.Get_City_Code();
                 int citcode2 = p2.second.Get_City_Code();
-                return (citcode1 < citcode2&& concode1 == concode2);                     // сортируем по city коду, при условии, что коды страны одинаковые
+                return (citcode1 < citcode2&& concode1 == concode2);                     // СЃРѕСЂС‚РёСЂСѓРµРј РїРѕ city РєРѕРґСѓ, РїСЂРё СѓСЃР»РѕРІРёРё, С‡С‚Рѕ РєРѕРґС‹ СЃС‚СЂР°РЅС‹ РѕРґРёРЅР°РєРѕРІС‹Рµ
             }
         );
 
@@ -266,7 +266,7 @@ public:
                 int citcode2 = p2.second.Get_City_Code();
                 int num1 = stoi(p1.second.Get_Number());
                 int num2 = stoi(p2.second.Get_Number());
-                return (num1 < num2&& citcode1 == citcode2 && concode1 == concode2);     // сортируем по номеру, при условии, что коды страны одинаковые и city коды одинаковые
+                return (num1 < num2&& citcode1 == citcode2 && concode1 == concode2);     // СЃРѕСЂС‚РёСЂСѓРµРј РїРѕ РЅРѕРјРµСЂСѓ, РїСЂРё СѓСЃР»РѕРІРёРё, С‡С‚Рѕ РєРѕРґС‹ СЃС‚СЂР°РЅС‹ РѕРґРёРЅР°РєРѕРІС‹Рµ Рё city РєРѕРґС‹ РѕРґРёРЅР°РєРѕРІС‹Рµ
             }
         );
 
@@ -280,10 +280,10 @@ public:
             {
                 if (p.first.Get_SurName() == sname)
                 {
-                    target = count;         // помещаем в target индекс элемента в vector
-                    ++i;    // если есть совпадения
+                    target = count;         // РїРѕРјРµС‰Р°РµРј РІ target РёРЅРґРµРєСЃ СЌР»РµРјРµРЅС‚Р° РІ vector
+                    ++i;    // РµСЃР»Рё РµСЃС‚СЊ СЃРѕРІРїР°РґРµРЅРёСЏ
                 }
-                ++count;    // общий счёт элементов
+                ++count;    // РѕР±С‰РёР№ СЃС‡С‘С‚ СЌР»РµРјРµРЅС‚РѕРІ
             }
         );
         if (i == 0) {
@@ -291,7 +291,7 @@ public:
             PhoneNumber pn;
             return make_tuple(s, pn);
         }
-        if (i == 1) {         // найдено единственное совпадение
+        if (i == 1) {         // РЅР°Р№РґРµРЅРѕ РµРґРёРЅСЃС‚РІРµРЅРЅРѕРµ СЃРѕРІРїР°РґРµРЅРёРµ
             s = sname + " found at " + to_string(target) + " positon , ";
             return make_tuple(s, PP[target].second);
         }
@@ -309,17 +309,17 @@ public:
         vector<pair<Person, PhoneNumber>>::iterator it = find_if(PP.begin(), PP.end(),
             [sname, fname, pname, country_c, city_c, number, add, this, &has_found, &count, &target](pair<Person, PhoneNumber> p) mutable
             {
-                if (p.first.Get_SurName() == sname && p.first.Get_FirstName() == fname && p.first.Get_PatrName() == pname)   // найдено совпадение по персоне
+                if (p.first.Get_SurName() == sname && p.first.Get_FirstName() == fname && p.first.Get_PatrName() == pname)   // РЅР°Р№РґРµРЅРѕ СЃРѕРІРїР°РґРµРЅРёРµ РїРѕ РїРµСЂСЃРѕРЅРµ
                 {
                     target = count;
 
-                    PP.erase(PP.begin() + target);   // удаляем старый элемент (c прежним номером телефона) вектора
+                    PP.erase(PP.begin() + target);   // СѓРґР°Р»СЏРµРј СЃС‚Р°СЂС‹Р№ СЌР»РµРјРµРЅС‚ (c РїСЂРµР¶РЅРёРј РЅРѕРјРµСЂРѕРј С‚РµР»РµС„РѕРЅР°) РІРµРєС‚РѕСЂР°
 
                     Person pr(sname, fname, pname);
                     string s = add;
                     if (s == "")  s = "0";
                     PhoneNumber pn(stoi(country_c), stoi(city_c), number, stoi(s));
-                    PP.push_back(make_pair(pr, pn));  // формируем и добавляем новую пару (с новым номером) в вектор
+                    PP.push_back(make_pair(pr, pn));  // С„РѕСЂРјРёСЂСѓРµРј Рё РґРѕР±Р°РІР»СЏРµРј РЅРѕРІСѓСЋ РїР°СЂСѓ (СЃ РЅРѕРІС‹Рј РЅРѕРјРµСЂРѕРј) РІ РІРµРєС‚РѕСЂ
 
                     has_found = true;
                 }
@@ -349,14 +349,16 @@ protected:
 
 TEST_F(PhoneBookTests, Compare_ScoreIsTen)
 {
-    string sname = "Davydov";       // прежние ФИО (имеющиеся в базе)
+    string sname = "Davydov";       // РїСЂРµР¶РЅРёРµ Р¤РРћ (РёРјРµСЋС‰РёРµСЃСЏ РІ Р±Р°Р·Рµ)
     string fname = "Filipp";
     string pname = "Grigorevich";
 
-    string country_code = "7";      // новый номер , будет вместо старого
+    string country_code = "7";      // РЅРѕРІС‹Р№ РЅРѕРјРµСЂ , Р±СѓРґРµС‚ РІРјРµСЃС‚Рѕ СЃС‚Р°СЂРѕРіРѕ
     string city_code = "624";
     string number = "1234567";
-
+                                // РЅРµ РјРѕРіСѓ СЃРѕРѕР±СЂР°Р·РёС‚СЊ, РЅР° С‡С‚Рѕ РїСЂРѕС‚РµСЃС‚РёСЂРѕРІР°С‚СЊ РІСЃРµ СЌС‚Рё РєР»Р°СЃСЃС‹
+								// РЅР° СѓРј РїСЂРёС€Р»Рѕ С‚РѕР»СЊРєРѕ РЅР°Р»РёС‡РёРµ-РѕС‚СЃСѓС‚СЃС‚РІРёРµ Р¤РРћ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…
+								// РјРѕР¶РµС‚, РїРѕРґРєРёРЅРёС‚Рµ РёРґРµРё?
     ASSERT_STREQ(book->ChangePhoneNumber(sname, fname, pname, country_code, city_code, number).c_str(), "Account has changed!");
 }
 
